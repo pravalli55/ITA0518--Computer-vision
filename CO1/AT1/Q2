@@ -1,0 +1,264 @@
+rom google.colab import files
+uploaded = files.upload()
+
+import cv2
+from matplotlib import pyplot as plt
+
+# Use the name of the uploaded file
+image_file_name = 'WhatsApp Image 2026-02-18 at 9.37.49 PM (1).jpeg'
+img = cv2.imread(image_file_name)
+
+if img is None:
+    print(f"Error: Could not load image '{image_file_name}'. Please ensure it was uploaded correctly.")
+else:
+    gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+    # Display the grayscale image using matplotlib, as cv2.imshow does not work in Colab
+    plt.imshow(gray_img, cmap='gray')
+    plt.title('Grayscale Image')
+    plt.axis('off') # Hide axes for cleaner display
+    plt.show()
+
+    cv2.imwrite('gray_image.jpg', gray_img)
+    print("Grayscale image 'gray_image.jpg' saved successfully.")
+
+    # cv2.waitKey(0) and cv2.destroyAllWindows() are not needed when using matplotlib or in Colab
+
+
+
+from google.colab import files
+uploaded = files.upload()
+
+import cv2
+from matplotlib import pyplot as plt
+
+# Use the name of the uploaded file
+image_file_name = 'WhatsApp Image 2026-02-18 at 9.37.49 PM (1) (1).jpeg'
+image = cv2.imread(image_file_name)
+
+if image is None:
+    print(f"Error: Could not load image '{image_file_name}'. Please ensure it was uploaded correctly.")
+else:
+    blur = cv2.GaussianBlur(image, (5, 5), 10)
+
+    cv2.imwrite('blurred_image.jpg', blur)
+    print("Blurred image 'blurred_image.jpg' saved successfully.")
+
+    # Display the blurred image using matplotlib, as cv2.imshow does not work in Colab
+    plt.imshow(cv2.cvtColor(blur, cv2.COLOR_BGR2RGB)) # Convert BGR to RGB for correct display with matplotlib
+    plt.title('Blurred Image')
+    plt.axis('off') # Hide axes for cleaner display
+    plt.show()
+
+    # cv2.imshow, cv2.waitKey, and cv2.destroyAllWindows are not needed when using matplotlib or in Colab
+
+from google.colab import files
+uploaded = files.upload()
+
+import cv2
+from matplotlib import pyplot as plt
+
+# Use the name of the uploaded file
+image_file_name = 'WhatsApp Image 2026-02-18 at 9.37.49 PM (1) (2).jpeg'
+image = cv2.imread(image_file_name)
+
+if image is None:
+    print(f"Error: Could not load image '{image_file_name}'. Please ensure it was uploaded correctly.")
+else:
+    blur = cv2.GaussianBlur(image, (5, 5), 10)
+
+    cv2.imwrite('blurred_image.jpg', blur)
+    print("Blurred image 'blurred_image.jpg' saved successfully.")
+
+    # Display the blurred image using matplotlib, as cv2.imshow does not work in Colab
+    plt.imshow(cv2.cvtColor(blur, cv2.COLOR_BGR2RGB)) # Convert BGR to RGB for correct display with matplotlib
+    plt.title('Blurred Image')
+    plt.axis('off') # Hide axes for cleaner display
+    plt.show()
+
+    # cv2.imshow, cv2.waitKey, and cv2.destroyAllWindows are not needed when using matplotlib or in Colab
+
+from google.colab import files
+uploaded = files.upload()
+
+import cv2
+from matplotlib import pyplot as plt
+
+# Use the name of the uploaded file
+image_file_name = 'WhatsApp Image 2026-02-18 at 9.37.49 PM (1) (3).jpeg'
+img = cv2.imread(image_file_name)
+
+if img is None:
+    print(f"Error: Could not load image '{image_file_name}'. Please ensure it was uploaded correctly.")
+else:
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    edges = cv2.Canny(gray, 100, 200)
+
+    cv2.imwrite('Canny_Edges_3rd.jpg', edges)
+    print("Canny edges image 'Canny_Edges_3rd.jpg' saved successfully.")
+
+    # Display the edges using matplotlib, as cv2.imshow does not work in Colab
+    plt.imshow(edges, cmap='gray')
+    plt.title('Canny Edges')
+    plt.axis('off') # Hide axes for cleaner display
+    plt.show()
+
+    # cv2.waitKey(0) and cv2.destroyAllWindows() are not needed when using matplotlib or in Colab
+
+from google.colab import files
+uploaded = files.upload()
+
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+# -----------------------------
+# Load image (replace with your image path)
+# -----------------------------
+# Use the name of your uploaded image file
+image_file_name = "Screenshot 2026-07-22 102039.png"
+image = cv2.imread(image_file_name)
+
+if image is None:
+    raise FileNotFoundError(f"Image not found. Please ensure '{image_file_name}' was uploaded correctly.")
+
+image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+image = image.astype(np.float32) / 255.0
+
+# -----------------------------
+# Step 1: Simulate low-light scene
+# -----------------------------
+light_factor = 0.15     # 15% brightness
+low_light = image * light_factor
+
+# -----------------------------
+# Step 2: Simulate Photon (Shot) Noise
+# -----------------------------
+shot_noise = np.random.poisson(low_light * 255) / 255.0
+
+# -----------------------------
+# Step 3: Add Sensor Read Noise
+# -----------------------------
+read_noise = np.random.normal(0, 0.02, shot_noise.shape)
+
+sensor_output = shot_noise + read_noise
+
+# -----------------------------
+# Step 4: ISO Amplification (Gain)
+# -----------------------------
+gain = 6
+
+amplified = sensor_output * gain
+
+# -----------------------------
+# Step 5: Clip values to valid range
+# -----------------------------
+final_image = np.clip(amplified, 0, 1)
+
+# -----------------------------
+# Display Results
+# -----------------------------
+titles = ["Original Image",
+          "Low-Light Scene",
+          "After Shot Noise",
+          "After Sensor Noise",
+          "Final Digital Image"]
+
+images = [image,
+          low_light,
+          shot_noise,
+          sensor_output,
+          final_image]
+
+plt.figure(figsize=(18,6))
+
+for i in range(5):
+    plt.subplot(1,5,i+1)
+    plt.imshow(images[i])
+    plt.title(titles[i])
+    plt.axis("off")
+
+plt.tight_layout()
+plt.show()
+
+from google.colab import files
+uploaded = files.upload()
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# -----------------------------
+# Create a synthetic scene
+# -----------------------------
+h, w = 256, 256
+
+scene = np.zeros((h, w, 3), dtype=np.float32)
+
+# Sky
+scene[:, :, :] = [0.1, 0.1, 0.25]
+
+# Road
+scene[150:256, :] = [0.25, 0.25, 0.25]
+
+# Street lights
+Y, X = np.ogrid[:h, :w]
+
+lights = [(60, 60), (70, 180), (100, 120)]
+
+for y, x in lights:
+    mask = (X - x) ** 2 + (Y - y) ** 2 < 400
+    scene[mask] = [1, 1, 0.7]
+
+# -----------------------------
+# Step 1: Low-light capture
+# -----------------------------
+low_light = scene * 0.2
+
+# -----------------------------
+# Step 2: Photon (Shot) Noise
+# -----------------------------
+shot_noise = np.random.poisson(low_light * 255) / 255.0
+
+# -----------------------------
+# Step 3: Sensor Read Noise
+# -----------------------------
+sensor_noise = shot_noise + np.random.normal(0, 0.03, shot_noise.shape)
+
+# -----------------------------
+# Step 4: ISO Amplification
+# -----------------------------
+gain = 5
+digital_image = sensor_noise * gain
+
+# Clip pixel values
+digital_image = np.clip(digital_image, 0, 1)
+
+# -----------------------------
+# Display Results
+# -----------------------------
+titles = [
+    "Original Scene",
+    "Low-Light Scene",
+    "Shot Noise",
+    "Sensor Noise",
+    "Final Digital Image"
+]
+
+images = [
+    scene,
+    low_light,
+    np.clip(shot_noise, 0, 1),
+    np.clip(sensor_noise, 0, 1),
+    digital_image
+]
+
+plt.figure(figsize=(16,4))
+
+for i in range(5):
+    plt.subplot(1,5,i+1)
+    plt.imshow(images[i])
+    plt.title(titles[i], fontsize=10)
+    plt.axis("off")
+
+plt.tight_layout()
+plt.show()
